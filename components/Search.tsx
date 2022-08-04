@@ -6,6 +6,11 @@ export default function Search() {
 	const [mealIsChecked, setMealIsChecked] = useState(false);
 	const [cuisineIsChecked, setCuisineIsChecked] = useState(false);
 
+	const [diet, setDiet] = useState("");
+	const [health, setHealth] = useState("");
+	const [meal, setMeal] = useState("");
+	const [cuisine, setCuisine] = useState("");
+
   function handleDietIsChecked() {
     if (dietIsChecked === false) {
       setDietIsChecked(true);
