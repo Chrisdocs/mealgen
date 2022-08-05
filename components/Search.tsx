@@ -1,15 +1,16 @@
-import { useState } from "react";
+import React, { useState } from "react";
 
 export default function Search() {
+
   const [dietIsChecked, setDietIsChecked] = useState(false);
   const [healthIsChecked, setHealthIsChecked] = useState(false);
   const [mealIsChecked, setMealIsChecked] = useState(false);
   const [cuisineIsChecked, setCuisineIsChecked] = useState(false);
 
-  const [diet, setDiet] = useState("");
-  const [health, setHealth] = useState("");
-  const [meal, setMeal] = useState("");
-  const [cuisine, setCuisine] = useState("");
+  const [diet, setDiet] = useState(null);
+  const [health, setHealth] = useState(null);
+  const [meal, setMeal] = useState(null);
+  const [cuisine, setCuisine] = useState(null);
 
   function handleDietIsChecked() {
     if (dietIsChecked === false) {
@@ -118,9 +119,38 @@ export default function Search() {
     "world",
   ];
 
+  function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+		e.preventDefault();
+
+    if (dietIsChecked === true) {
+      setDiet(diet);
+    } else {
+      setDiet(null);
+    }
+    if (healthIsChecked === true) {
+      setHealth(health);
+    } else {
+      setHealth(null);
+    }
+    if (mealIsChecked === true) {
+      setMeal(meal);
+    } else {
+      setMeal(null);
+    }
+    if (cuisineIsChecked === true) {
+      setCuisine(cuisine);
+    } else {
+      setCuisine(null);
+    }
+  }
+
+	// TODO: some items can have multiple values in the request, so we need to handle that.  It requires a separate call string ie &cuisine=american&cuisine=french.
+
   return (
     <div>
-      <form>
+      <form
+				onSubmit={handleSubmit}
+			>
         <div>
           <label htmlFor="Diet">Diet</label>
           <input
@@ -134,7 +164,7 @@ export default function Search() {
                 return (
                   <div>
                     <label htmlFor={item}>{item}: </label>
-                    <input type="checkbox" id={item} name={item} />
+                    <input type="radio" id={item} name="dietItems" />
                   </div>
                 );
               })
@@ -154,7 +184,7 @@ export default function Search() {
                 return (
                   <div>
                     <label htmlFor={item}>{item}: </label>
-                    <input type="checkbox" id={item} name={item} />
+                    <input type="radio" id={item} name="healthItems" />
                   </div>
                 );
               })
@@ -174,7 +204,7 @@ export default function Search() {
                 return (
                   <div>
                     <label htmlFor={item}>{item}: </label>
-                    <input type="checkbox" id={item} name={item} />
+                    <input type="radio" id={item} name="mealItems" />
                   </div>
                 );
               })
@@ -194,12 +224,14 @@ export default function Search() {
                 return (
                   <div>
                     <label htmlFor={item}>{item}: </label>
-                    <input type="checkbox" id={item} name={item} />
+                    <input type="radio" id={item} name="cuisineItems" />
                   </div>
                 );
               })
             : null}
         </div>
+
+        <button type="submit">Submit</button>
       </form>
     </div>
   );
