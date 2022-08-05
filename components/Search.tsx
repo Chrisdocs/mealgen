@@ -7,10 +7,10 @@ export default function Search() {
   const [mealIsChecked, setMealIsChecked] = useState(false);
   const [cuisineIsChecked, setCuisineIsChecked] = useState(false);
 
-  const [diet, setDiet] = useState(null);
-  const [health, setHealth] = useState(null);
-  const [meal, setMeal] = useState(null);
-  const [cuisine, setCuisine] = useState(null);
+  const [diet, setDiet] = useState('');
+  const [health, setHealth] = useState('');
+  const [meal, setMeal] = useState('');
+  const [cuisine, setCuisine] = useState('');
 
   function handleDietIsChecked() {
     if (dietIsChecked === false) {
@@ -125,26 +125,30 @@ export default function Search() {
     if (dietIsChecked === true) {
       setDiet(diet);
     } else {
-      setDiet(null);
+      setDiet('');
     }
     if (healthIsChecked === true) {
       setHealth(health);
     } else {
-      setHealth(null);
+      setHealth('');
     }
     if (mealIsChecked === true) {
       setMeal(meal);
     } else {
-      setMeal(null);
+      setMeal('');
     }
     if (cuisineIsChecked === true) {
       setCuisine(cuisine);
     } else {
-      setCuisine(null);
+      setCuisine('');
     }
   }
 
 	// TODO: some items can have multiple values in the request, so we need to handle that.  It requires a separate call string ie &cuisine=american&cuisine=french.
+
+	// The item state holder 'cuisine' will need to be an array of selected values. those values will need to be mapped in the fetch url to render a separate call string for each value.
+
+	// May be best to do all the array generation and stringification in this local component and pass the final string to the api component.
 
   return (
     <div>
@@ -162,9 +166,9 @@ export default function Search() {
           {dietIsChecked
             ? dietArray.map((item: string) => {
                 return (
-                  <div>
+                  <div key={item + 'Key'}>
                     <label htmlFor={item}>{item}: </label>
-                    <input type="radio" id={item} name="dietItems" />
+                    <input type="radio" id={item} name="dietItems" value={item} onClick={(event: React.FormEvent<HTMLInputElement>) => {setDiet(event.currentTarget.value); console.log(event.currentTarget.value)}}/>
                   </div>
                 );
               })
@@ -182,9 +186,9 @@ export default function Search() {
           {healthIsChecked
             ? healthArray.map((item: string) => {
                 return (
-                  <div>
+                  <div key={item + 'Key'}>
                     <label htmlFor={item}>{item}: </label>
-                    <input type="radio" id={item} name="healthItems" />
+                    <input type="radio" id={item} name="healthItems" value={item} onClick={(event: React.FormEvent<HTMLInputElement>) => {setHealth(event.currentTarget.value); console.log(event.currentTarget.value)}}/>
                   </div>
                 );
               })
@@ -202,9 +206,9 @@ export default function Search() {
           {mealIsChecked
             ? mealArray.map((item: string) => {
                 return (
-                  <div>
+                  <div key={item + 'Key'}>
                     <label htmlFor={item}>{item}: </label>
-                    <input type="radio" id={item} name="mealItems" />
+                    <input type="radio" id={item} name="mealItems" value={item} onClick={(event: React.FormEvent<HTMLInputElement>) => {setMeal(event.currentTarget.value); console.log(event.currentTarget.value)}}/>
                   </div>
                 );
               })
@@ -222,9 +226,9 @@ export default function Search() {
           {cuisineIsChecked
             ? cuisineArray.map((item: string) => {
                 return (
-                  <div>
+                  <div key={item + 'Key'}>
                     <label htmlFor={item}>{item}: </label>
-                    <input type="radio" id={item} name="cuisineItems" />
+                    <input type="radio" id={item} name="cuisineItems" value={item} onClick={(event: React.FormEvent<HTMLInputElement>) => {setCuisine(event.currentTarget.value); console.log(event.currentTarget.value)}}/>
                   </div>
                 );
               })
