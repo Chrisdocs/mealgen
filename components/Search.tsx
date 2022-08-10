@@ -1,16 +1,30 @@
 import React, { useState } from "react";
+import {
+  useMultiselectDiet,
+  useMultiselectHealth,
+  useMultiselectCuisine,
+  useMultiselectMeal,
+} from "./hooks";
+import { RecipeAPI } from "../pages/api/Recipe";
+import styles from '../styles/Home.module.scss'
 
 export default function Search() {
+  const { selectedDiet, isSelectedDiet, onChangeDiet } = useMultiselectDiet([]);
+  const { selectedHealth, isSelectedHealth, onChangeHealth } =
+    useMultiselectHealth([]);
+  const { selectedCuisine, isSelectedCuisine, onChangeCuisine } =
+    useMultiselectCuisine([]);
+  const { selectedMeal, isSelectedMeal, onChangeMeal } = useMultiselectMeal([]);
 
   const [dietIsChecked, setDietIsChecked] = useState(false);
   const [healthIsChecked, setHealthIsChecked] = useState(false);
   const [mealIsChecked, setMealIsChecked] = useState(false);
   const [cuisineIsChecked, setCuisineIsChecked] = useState(false);
 
-  const [diet, setDiet] = useState('');
-  const [health, setHealth] = useState('');
-  const [meal, setMeal] = useState('');
-  const [cuisine, setCuisine] = useState('');
+  const [diet, setDiet] = useState<any>([]);
+  const [health, setHealth] = useState<any>([]);
+  const [meal, setMeal] = useState<any>([]);
+  const [cuisine, setCuisine] = useState<any>([]);
 
   function handleDietIsChecked() {
     if (dietIsChecked === false) {
@@ -120,41 +134,45 @@ export default function Search() {
   ];
 
   function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
-		e.preventDefault();
+    e.preventDefault();
 
     if (dietIsChecked === true) {
-      setDiet(diet);
+      setDiet(selectedDiet);
     } else {
-      setDiet('');
+      setDiet([]);
     }
     if (healthIsChecked === true) {
-      setHealth(health);
+      setHealth(selectedHealth);
     } else {
-      setHealth('');
+      setHealth([]);
     }
     if (mealIsChecked === true) {
-      setMeal(meal);
+      setMeal(selectedMeal);
     } else {
-      setMeal('');
+      setMeal([]);
     }
     if (cuisineIsChecked === true) {
-      setCuisine(cuisine);
+      setCuisine(selectedCuisine);
     } else {
-      setCuisine('');
+      setCuisine([]);
     }
+		
   }
 
-	// TODO: some items can have multiple values in the request, so we need to handle that.  It requires a separate call string ie &cuisine=american&cuisine=french.
+  // TODO: some items can have multiple values in the request, so we need to handle that.  It requires a separate call string ie &cuisine=american&cuisine=french.
 
-	// The item state holder 'cuisine' will need to be an array of selected values. those values will need to be mapped in the fetch url to render a separate call string for each value.
+  // The item state holder 'cuisine' will need to be an array of selected values. those values will need to be mapped in the fetch url to render a separate call string for each value.
 
-	// May be best to do all the array generation and stringification in this local component and pass the final string to the api component.
+  // May be best to do all the array generation and stringification in this local component and pass the final string to the api component.
+
+	console.log("selected in diet: ", selectedDiet, 'diet: ', diet);
+  console.log("selected in health: ", selectedHealth, "health: ", health);
+	console.log("selected in meal: ", selectedMeal, "meal: ", meal);
+	console.log("selected in cuisine: ", selectedCuisine, "cuisine: ", cuisine);
 
   return (
     <div>
-      <form
-				onSubmit={handleSubmit}
-			>
+      <form onSubmit={handleSubmit}>
         <div>
           <label htmlFor="Diet">Diet</label>
           <input
@@ -163,16 +181,26 @@ export default function Search() {
             id="diet"
             onClick={handleDietIsChecked}
           />
-          {dietIsChecked
-            ? dietArray.map((item: string) => {
-                return (
-                  <div key={item + 'Key'}>
-                    <label htmlFor={item}>{item}: </label>
-                    <input type="radio" id={item} name="dietItems" value={item} onClick={(event: React.FormEvent<HTMLInputElement>) => {setDiet(event.currentTarget.value); console.log(event.currentTarget.value)}}/>
-                  </div>
-                );
-              })
-            : null}
+          <ul style={{ listStyleType: "none" }}>
+            {dietIsChecked
+              ? dietArray.map((item: string) => {
+                  return (
+                    <li className={styles.list} key={item}>
+                      <label className={styles.listLabel} htmlFor={item}>{item}: </label>
+                      <input
+												className={styles.listInput}
+                        type="checkbox"
+                        id={item}
+                        name="dietItems"
+                        value={item}
+                        checked={isSelectedDiet(item)}
+                        onChange={onChangeDiet}
+                      />
+                    </li>
+                  );
+                })
+              : null}
+          </ul>
         </div>
 
         <div>
@@ -183,56 +211,83 @@ export default function Search() {
             name="health"
             onClick={handleHealthChecked}
           />
-          {healthIsChecked
-            ? healthArray.map((item: string) => {
-                return (
-                  <div key={item + 'Key'}>
-                    <label htmlFor={item}>{item}: </label>
-                    <input type="radio" id={item} name="healthItems" value={item} onClick={(event: React.FormEvent<HTMLInputElement>) => {setHealth(event.currentTarget.value); console.log(event.currentTarget.value)}}/>
-                  </div>
-                );
-              })
-            : null}
+          <ul style={{ listStyleType: "none" }}>
+            {healthIsChecked
+              ? healthArray.map((item: string) => {
+                  return (
+                    <li key={item}>
+                      <label htmlFor={item}>{item}: </label>
+                      <input
+                        type="checkbox"
+                        id={item}
+                        name="healthItems"
+                        value={'&health='+item}
+                        checked={isSelectedHealth(item)}
+                        onChange={onChangeHealth}
+                      />
+                    </li>
+                  );
+                })
+              : null}
+          </ul>
         </div>
 
         <div>
           <label htmlFor="health">Meal </label>
           <input
             type="checkbox"
-            id="health"
-            name="health"
+            id="meal"
+            name="meal"
             onClick={handleMealIsChecked}
           />
-          {mealIsChecked
-            ? mealArray.map((item: string) => {
-                return (
-                  <div key={item + 'Key'}>
-                    <label htmlFor={item}>{item}: </label>
-                    <input type="radio" id={item} name="mealItems" value={item} onClick={(event: React.FormEvent<HTMLInputElement>) => {setMeal(event.currentTarget.value); console.log(event.currentTarget.value)}}/>
-                  </div>
-                );
-              })
-            : null}
+          <ul style={{ listStyleType: "none" }}>
+            {mealIsChecked
+              ? mealArray.map((item: string) => {
+                  return (
+                    <li key={item}>
+                      <label htmlFor={item}>{item}: </label>
+                      <input
+                        type="checkbox"
+                        id={item}
+                        name="mealItems"
+                        value={'&meal='+item}
+                        checked={isSelectedMeal(item)}
+                        onChange={onChangeMeal}
+                      />
+                    </li>
+                  );
+                })
+              : null}
+          </ul>
         </div>
 
         <div>
           <label htmlFor="health">Cuisine </label>
           <input
             type="checkbox"
-            id="health"
-            name="health"
+            id="cuisine"
+            name="cuisine"
             onClick={handleCuisineIsChecked}
           />
-          {cuisineIsChecked
-            ? cuisineArray.map((item: string) => {
-                return (
-                  <div key={item + 'Key'}>
-                    <label htmlFor={item}>{item}: </label>
-                    <input type="radio" id={item} name="cuisineItems" value={item} onClick={(event: React.FormEvent<HTMLInputElement>) => {setCuisine(event.currentTarget.value); console.log(event.currentTarget.value)}}/>
-                  </div>
-                );
-              })
-            : null}
+          <ul style={{ listStyleType: "none" }}>
+            {cuisineIsChecked
+              ? cuisineArray.map((item: string) => {
+                  return (
+                    <li key={item}>
+                      <label htmlFor={item}>{item}: </label>
+                      <input
+                        type="checkbox"
+                        id={item}
+                        name="cuisineItems"
+                        value={'&cuisine='+item}
+                        checked={isSelectedCuisine(item)}
+                        onChange={onChangeCuisine}
+                      />
+                    </li>
+                  );
+                })
+              : null}
+          </ul>
         </div>
 
         <button type="submit">Submit</button>

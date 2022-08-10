@@ -1,3 +1,5 @@
+import type { NextApiRequest, NextApiResponse } from 'next'
+
 export async function RecipeAPI(
   diet: string,
   health: string,
@@ -12,11 +14,15 @@ export async function RecipeAPI(
   const MEAL = meal ? meal : null;
 
   const response = await fetch(
-    `https://api.edamam.com/api/recipes/v2?type=public&q=all&app_id=${ID}&app_key=%${API_KEY}${
-      DIET !== null ? "&diet=" + DIET : ""
-    }${HEALTH !== null ? "&health=" + HEALTH : ""}${
-      CUISINE !== null ? "&cuisine=" + CUISINE : ""
-    }${MEAL !== null ? "&meal=" + MEAL : ""}`
+    `https://api.edamam.com/api/recipes/v2?
+		type=public
+		&q=all
+		&app_id=${ID}
+		&app_key=%${API_KEY}
+		${DIET !== null ? DIET : ""}
+		${HEALTH !== null ? HEALTH : ""}
+		${CUISINE !== null ? CUISINE : ""}
+		${MEAL !== null ? MEAL : ""}`
   );
   const data = await response.json();
 
@@ -31,3 +37,14 @@ export async function RecipeAPI(
     };
   }
 }
+
+
+export default function handler(req: any, res: any) {
+	if (req.method === 'GET') {
+		// Process a GET request
+
+	} else {
+		// Handle any other HTTP method
+	}
+}
+
