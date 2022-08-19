@@ -159,17 +159,6 @@ function Search({ data }: any) {
     }
   }
 
-  // TODO: some items can have multiple values in the request, so we need to handle that.  It requires a separate call string ie &cuisine=american&cuisine=french.
-
-  // The item state holder 'cuisine' will need to be an array of selected values. those values will need to be mapped in the fetch url to render a separate call string for each value.
-
-  // May be best to do all the array generation and stringification in this local component and pass the final string to the api component.
-
-	// console.log("selected in diet: ", selectedDiet, 'diet: ', diet);
-  // console.log("selected in health: ", selectedHealth, "health: ", health);
-	// console.log("selected in meal: ", selectedMeal, "meal: ", meal);
-	// console.log("selected in cuisine: ", selectedCuisine, "cuisine: ", cuisine);
-
   return (
     <div>
       <form onSubmit={handleSubmit}>
