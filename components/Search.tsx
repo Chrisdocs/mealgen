@@ -5,10 +5,11 @@ import {
   useMultiselectCuisine,
   useMultiselectMeal,
 } from "./hooks";
-import { RecipeAPI } from "../pages/api/Recipe";
 import styles from '../styles/Home.module.scss'
+import SearchResults from "./SearchResults";
 
-export default function Search() {
+function Search({ data }: any) {
+	
   const { selectedDiet, isSelectedDiet, onChangeDiet } = useMultiselectDiet([]);
   const { selectedHealth, isSelectedHealth, onChangeHealth } =
     useMultiselectHealth([]);
@@ -156,7 +157,6 @@ export default function Search() {
     } else {
       setCuisine([]);
     }
-		
   }
 
   // TODO: some items can have multiple values in the request, so we need to handle that.  It requires a separate call string ie &cuisine=american&cuisine=french.
@@ -165,10 +165,10 @@ export default function Search() {
 
   // May be best to do all the array generation and stringification in this local component and pass the final string to the api component.
 
-	console.log("selected in diet: ", selectedDiet, 'diet: ', diet);
-  console.log("selected in health: ", selectedHealth, "health: ", health);
-	console.log("selected in meal: ", selectedMeal, "meal: ", meal);
-	console.log("selected in cuisine: ", selectedCuisine, "cuisine: ", cuisine);
+	// console.log("selected in diet: ", selectedDiet, 'diet: ', diet);
+  // console.log("selected in health: ", selectedHealth, "health: ", health);
+	// console.log("selected in meal: ", selectedMeal, "meal: ", meal);
+	// console.log("selected in cuisine: ", selectedCuisine, "cuisine: ", cuisine);
 
   return (
     <div>
@@ -215,13 +215,14 @@ export default function Search() {
             {healthIsChecked
               ? healthArray.map((item: string) => {
                   return (
-                    <li key={item}>
-                      <label htmlFor={item}>{item}: </label>
+                    <li className={styles.list} key={item}>
+                      <label className={styles.listLabel} htmlFor={item}>{item}: </label>
                       <input
+											className={styles.listInput}
                         type="checkbox"
                         id={item}
                         name="healthItems"
-                        value={'&health='+item}
+                        value={item}
                         checked={isSelectedHealth(item)}
                         onChange={onChangeHealth}
                       />
@@ -244,13 +245,14 @@ export default function Search() {
             {mealIsChecked
               ? mealArray.map((item: string) => {
                   return (
-                    <li key={item}>
-                      <label htmlFor={item}>{item}: </label>
+                    <li className={styles.list} key={item}>
+                      <label className={styles.listLabel} htmlFor={item}>{item}: </label>
                       <input
+											className={styles.listInput}
                         type="checkbox"
                         id={item}
                         name="mealItems"
-                        value={'&meal='+item}
+                        value={item}
                         checked={isSelectedMeal(item)}
                         onChange={onChangeMeal}
                       />
@@ -273,13 +275,14 @@ export default function Search() {
             {cuisineIsChecked
               ? cuisineArray.map((item: string) => {
                   return (
-                    <li key={item}>
-                      <label htmlFor={item}>{item}: </label>
+                    <li className={styles.list} key={item}>
+                      <label className={styles.listLabel} htmlFor={item}>{item}: </label>
                       <input
+											className={styles.listInput}
                         type="checkbox"
                         id={item}
                         name="cuisineItems"
-                        value={'&cuisine='+item}
+                        value={item}
                         checked={isSelectedCuisine(item)}
                         onChange={onChangeCuisine}
                       />
@@ -292,6 +295,9 @@ export default function Search() {
 
         <button type="submit">Submit</button>
       </form>
+			<SearchResults diet={diet} health={health} meal={meal} cuisine={cuisine}/>
     </div>
   );
 }
+
+export default Search;
