@@ -1,3 +1,5 @@
+@import 'mixins';
+
 /* Search Component */
 
 .searchWrapper{
@@ -6,6 +8,21 @@
 			display: flex;
 			justify-content: center;
 			justify-content: space-around;
+			.listContainer{
+				.checkBoxParent{
+					display: none;
+				}
+				.checkBoxUl{
+				position: absolute;
+				list-style-type: none;
+				padding-left: 0;
+				.list{
+
+				}
+				.checkBoxChild{
+				}
+			}
+		}
 		}
 		.btnWrapper{
 			display: flex;
@@ -16,5 +33,70 @@
 	}
 	.searchResultsContainer{
 		text-align: center;
+	}
+}
+
+@media screen and (max-width: 450px) {
+	.searchWrapper{
+		.searchTitle{
+			text-align: center;
+			background-color: $globalBackgroundColorLight;
+			color: black;
+			padding: 40px 0 40px 0;
+			margin-top: 0;
+			margin-bottom: 30px;
+			border-radius: 0 0 50px 50px;
+		}
+		.formEl{
+			.checkBoxContainer{
+				flex-direction: column;
+				align-items: center;
+				.listContainer{
+					.label{
+						display: flex;
+						justify-content: center;
+						background-color: $btnPrimary;
+						color: black;
+						width: 90vw;
+						padding: 20px 0 20px 0;
+						border-radius: 25px;
+					}
+					.checkBoxParent{
+						display: none;
+					}
+					.checkBoxUl{
+						position: relative;
+						.list{
+							display: flex;
+							justify-content: center;
+							.checkBoxChild{
+							}
+						}
+						.checkBoxChild{
+						}
+					}
+				}
+			}
+		}
+	}
+	.btnWrapper{
+		.searchBtn{
+			margin-bottom: 100px;
+		}
+	}
+}
+
+/* results component */
+
+.resultsWrapper{
+	background-color: $btnPrimary;
+	padding: 50px 0 50px 0;
+	border-radius: 100px;
+	width: 150px;
+	margin: 0 auto;
+	color: black;
+	.goLink{
+		.linkP{
+		}
 	}
 }

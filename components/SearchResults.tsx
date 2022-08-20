@@ -1,7 +1,7 @@
 import React from "react";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import Link from "next/link";
-import RecipesData from "../pages/recipes/[recipes]";
+import styles from "../styles/Home.module.scss";
 
 
 export default function SearchResults(data: any) {
@@ -43,10 +43,9 @@ export default function SearchResults(data: any) {
 	}
 
   return (
-    <div>
-      <h2>Search Results</h2>
-			<Link href={`/recipes/${searchData.slug}`}>
-				Link!
+    <div className={styles.resultsWrapper}>
+			<Link className={styles.goLink} href={`/recipes/${searchData.slug}`}>
+				<p className={styles.linkP}>GO!</p>
 			</Link>
     </div>
   );

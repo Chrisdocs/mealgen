@@ -7,8 +7,9 @@ import {
 } from "./hooks";
 import styles from "../styles/Home.module.scss";
 import SearchResults from "./SearchResults";
+import Link from "next/link";
 
-function Search({ data }: any) {
+export default function Search() {
   const { selectedDiet, isSelectedDiet, onChangeDiet } = useMultiselectDiet([]);
   const { selectedHealth, isSelectedHealth, onChangeHealth } =
     useMultiselectHealth([]);
@@ -160,17 +161,21 @@ function Search({ data }: any) {
 
   return (
     <div className={styles.searchWrapper}>
+			<div>
+				<h1 className={styles.searchTitle}>Choose your meal preferences!</h1>
+			</div>
       <form onSubmit={handleSubmit} className={styles.formEl}>
         <div className={styles.checkBoxContainer}>
-          <div>
-            <label htmlFor="Diet">Diet</label>
+          <div className={styles.listContainer}>
+            <label className={styles.label} htmlFor="diet">Diet</label>
             <input
+              className={styles.checkBoxParent}
               type="checkbox"
-              name="Diet"
+              name="diet"
               id="diet"
               onClick={handleDietIsChecked}
             />
-            <ul style={{ listStyleType: "none" }}>
+            <ul className={styles.checkBoxUl}>
               {dietIsChecked
                 ? dietArray.map((item: string) => {
                     return (
@@ -179,7 +184,7 @@ function Search({ data }: any) {
                           {item}:{" "}
                         </label>
                         <input
-                          className={styles.listInput}
+                          className={styles.checkBoxChild}
                           type="checkbox"
                           id={item}
                           name="dietItems"
@@ -194,15 +199,16 @@ function Search({ data }: any) {
             </ul>
           </div>
 
-          <div>
-            <label htmlFor="health">Health </label>
+          <div className={styles.listContainer}>
+            <label className={styles.label} htmlFor="health">Health </label>
             <input
+              className={styles.checkBoxParent}
               type="checkbox"
               id="health"
               name="health"
               onClick={handleHealthChecked}
             />
-            <ul style={{ listStyleType: "none" }}>
+            <ul style={{ listStyleType: "none" }} className={styles.checkBoxUl}>
               {healthIsChecked
                 ? healthArray.map((item: string) => {
                     return (
@@ -211,7 +217,7 @@ function Search({ data }: any) {
                           {item}:{" "}
                         </label>
                         <input
-                          className={styles.listInput}
+                          className={styles.checkBoxChild}
                           type="checkbox"
                           id={item}
                           name="healthItems"
@@ -226,15 +232,16 @@ function Search({ data }: any) {
             </ul>
           </div>
 
-          <div>
-            <label htmlFor="health">Meal </label>
+          <div className={styles.listContainer}>
+            <label className={styles.label} htmlFor="meal">Meal </label>
             <input
+              className={styles.checkBoxParent}
               type="checkbox"
               id="meal"
               name="meal"
               onClick={handleMealIsChecked}
             />
-            <ul style={{ listStyleType: "none" }}>
+            <ul style={{ listStyleType: "none" }} className={styles.checkBoxUl}>
               {mealIsChecked
                 ? mealArray.map((item: string) => {
                     return (
@@ -243,7 +250,7 @@ function Search({ data }: any) {
                           {item}:{" "}
                         </label>
                         <input
-                          className={styles.listInput}
+                          className={styles.checkBoxChild}
                           type="checkbox"
                           id={item}
                           name="mealItems"
@@ -258,15 +265,16 @@ function Search({ data }: any) {
             </ul>
           </div>
 
-          <div>
-            <label htmlFor="health">Cuisine </label>
+          <div className={styles.listContainer}>
+            <label className={styles.label} htmlFor="cuisine">Cuisine </label>
             <input
+              className={styles.checkBoxParent}
               type="checkbox"
               id="cuisine"
               name="cuisine"
               onClick={handleCuisineIsChecked}
             />
-            <ul style={{ listStyleType: "none" }}>
+            <ul style={{ listStyleType: "none" }} className={styles.checkBoxUl}>
               {cuisineIsChecked
                 ? cuisineArray.map((item: string) => {
                     return (
@@ -275,7 +283,7 @@ function Search({ data }: any) {
                           {item}:{" "}
                         </label>
                         <input
-                          className={styles.listInput}
+                          className={styles.checkBoxChild}
                           type="checkbox"
                           id={item}
                           name="cuisineItems"
@@ -293,7 +301,7 @@ function Search({ data }: any) {
 
         <div className={styles.btnWrapper}>
           <button type="submit" className={styles.searchBtn}>
-            Submit
+            Apply Filters
           </button>
         </div>
       </form>
@@ -308,5 +316,3 @@ function Search({ data }: any) {
     </div>
   );
 }
-
-export default Search;
