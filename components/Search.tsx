@@ -5,11 +5,10 @@ import {
   useMultiselectCuisine,
   useMultiselectMeal,
 } from "./hooks";
-import styles from '../styles/Home.module.scss'
+import styles from "../styles/Home.module.scss";
 import SearchResults from "./SearchResults";
 
 function Search({ data }: any) {
-	
   const { selectedDiet, isSelectedDiet, onChangeDiet } = useMultiselectDiet([]);
   const { selectedHealth, isSelectedHealth, onChangeHealth } =
     useMultiselectHealth([]);
@@ -160,131 +159,152 @@ function Search({ data }: any) {
   }
 
   return (
-    <div>
-      <form onSubmit={handleSubmit}>
-        <div>
-          <label htmlFor="Diet">Diet</label>
-          <input
-            type="checkbox"
-            name="Diet"
-            id="diet"
-            onClick={handleDietIsChecked}
-          />
-          <ul style={{ listStyleType: "none" }}>
-            {dietIsChecked
-              ? dietArray.map((item: string) => {
-                  return (
-                    <li className={styles.list} key={item}>
-                      <label className={styles.listLabel} htmlFor={item}>{item}: </label>
-                      <input
-												className={styles.listInput}
-                        type="checkbox"
-                        id={item}
-                        name="dietItems"
-                        value={item}
-                        checked={isSelectedDiet(item)}
-                        onChange={onChangeDiet}
-                      />
-                    </li>
-                  );
-                })
-              : null}
-          </ul>
+    <div className={styles.searchWrapper}>
+      <form onSubmit={handleSubmit} className={styles.formEl}>
+        <div className={styles.checkBoxContainer}>
+          <div>
+            <label htmlFor="Diet">Diet</label>
+            <input
+              type="checkbox"
+              name="Diet"
+              id="diet"
+              onClick={handleDietIsChecked}
+            />
+            <ul style={{ listStyleType: "none" }}>
+              {dietIsChecked
+                ? dietArray.map((item: string) => {
+                    return (
+                      <li className={styles.list} key={item}>
+                        <label className={styles.listLabel} htmlFor={item}>
+                          {item}:{" "}
+                        </label>
+                        <input
+                          className={styles.listInput}
+                          type="checkbox"
+                          id={item}
+                          name="dietItems"
+                          value={item}
+                          checked={isSelectedDiet(item)}
+                          onChange={onChangeDiet}
+                        />
+                      </li>
+                    );
+                  })
+                : null}
+            </ul>
+          </div>
+
+          <div>
+            <label htmlFor="health">Health </label>
+            <input
+              type="checkbox"
+              id="health"
+              name="health"
+              onClick={handleHealthChecked}
+            />
+            <ul style={{ listStyleType: "none" }}>
+              {healthIsChecked
+                ? healthArray.map((item: string) => {
+                    return (
+                      <li className={styles.list} key={item}>
+                        <label className={styles.listLabel} htmlFor={item}>
+                          {item}:{" "}
+                        </label>
+                        <input
+                          className={styles.listInput}
+                          type="checkbox"
+                          id={item}
+                          name="healthItems"
+                          value={item}
+                          checked={isSelectedHealth(item)}
+                          onChange={onChangeHealth}
+                        />
+                      </li>
+                    );
+                  })
+                : null}
+            </ul>
+          </div>
+
+          <div>
+            <label htmlFor="health">Meal </label>
+            <input
+              type="checkbox"
+              id="meal"
+              name="meal"
+              onClick={handleMealIsChecked}
+            />
+            <ul style={{ listStyleType: "none" }}>
+              {mealIsChecked
+                ? mealArray.map((item: string) => {
+                    return (
+                      <li className={styles.list} key={item}>
+                        <label className={styles.listLabel} htmlFor={item}>
+                          {item}:{" "}
+                        </label>
+                        <input
+                          className={styles.listInput}
+                          type="checkbox"
+                          id={item}
+                          name="mealItems"
+                          value={item}
+                          checked={isSelectedMeal(item)}
+                          onChange={onChangeMeal}
+                        />
+                      </li>
+                    );
+                  })
+                : null}
+            </ul>
+          </div>
+
+          <div>
+            <label htmlFor="health">Cuisine </label>
+            <input
+              type="checkbox"
+              id="cuisine"
+              name="cuisine"
+              onClick={handleCuisineIsChecked}
+            />
+            <ul style={{ listStyleType: "none" }}>
+              {cuisineIsChecked
+                ? cuisineArray.map((item: string) => {
+                    return (
+                      <li className={styles.list} key={item}>
+                        <label className={styles.listLabel} htmlFor={item}>
+                          {item}:{" "}
+                        </label>
+                        <input
+                          className={styles.listInput}
+                          type="checkbox"
+                          id={item}
+                          name="cuisineItems"
+                          value={item}
+                          checked={isSelectedCuisine(item)}
+                          onChange={onChangeCuisine}
+                        />
+                      </li>
+                    );
+                  })
+                : null}
+            </ul>
+          </div>
         </div>
 
-        <div>
-          <label htmlFor="health">Health </label>
-          <input
-            type="checkbox"
-            id="health"
-            name="health"
-            onClick={handleHealthChecked}
-          />
-          <ul style={{ listStyleType: "none" }}>
-            {healthIsChecked
-              ? healthArray.map((item: string) => {
-                  return (
-                    <li className={styles.list} key={item}>
-                      <label className={styles.listLabel} htmlFor={item}>{item}: </label>
-                      <input
-											className={styles.listInput}
-                        type="checkbox"
-                        id={item}
-                        name="healthItems"
-                        value={item}
-                        checked={isSelectedHealth(item)}
-                        onChange={onChangeHealth}
-                      />
-                    </li>
-                  );
-                })
-              : null}
-          </ul>
+        <div className={styles.btnWrapper}>
+          <button type="submit" className={styles.searchBtn}>
+            Submit
+          </button>
         </div>
-
-        <div>
-          <label htmlFor="health">Meal </label>
-          <input
-            type="checkbox"
-            id="meal"
-            name="meal"
-            onClick={handleMealIsChecked}
-          />
-          <ul style={{ listStyleType: "none" }}>
-            {mealIsChecked
-              ? mealArray.map((item: string) => {
-                  return (
-                    <li className={styles.list} key={item}>
-                      <label className={styles.listLabel} htmlFor={item}>{item}: </label>
-                      <input
-											className={styles.listInput}
-                        type="checkbox"
-                        id={item}
-                        name="mealItems"
-                        value={item}
-                        checked={isSelectedMeal(item)}
-                        onChange={onChangeMeal}
-                      />
-                    </li>
-                  );
-                })
-              : null}
-          </ul>
-        </div>
-
-        <div>
-          <label htmlFor="health">Cuisine </label>
-          <input
-            type="checkbox"
-            id="cuisine"
-            name="cuisine"
-            onClick={handleCuisineIsChecked}
-          />
-          <ul style={{ listStyleType: "none" }}>
-            {cuisineIsChecked
-              ? cuisineArray.map((item: string) => {
-                  return (
-                    <li className={styles.list} key={item}>
-                      <label className={styles.listLabel} htmlFor={item}>{item}: </label>
-                      <input
-											className={styles.listInput}
-                        type="checkbox"
-                        id={item}
-                        name="cuisineItems"
-                        value={item}
-                        checked={isSelectedCuisine(item)}
-                        onChange={onChangeCuisine}
-                      />
-                    </li>
-                  );
-                })
-              : null}
-          </ul>
-        </div>
-
-        <button type="submit">Submit</button>
       </form>
-			<SearchResults diet={diet} health={health} meal={meal} cuisine={cuisine}/>
+      <div className={styles.searchResultsContainer}>
+        <SearchResults
+          diet={diet}
+          health={health}
+          meal={meal}
+          cuisine={cuisine}
+        />
+      </div>
     </div>
   );
 }
