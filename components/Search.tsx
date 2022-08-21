@@ -59,14 +59,10 @@ export default function Search() {
   }
 
   const healthArray = [
-    "alcohol-cocktail",
-    "alcohol-free",
-    "celery-free",
     "crustacean-free",
     "dairy-free",
     "egg-free",
     "fish-free",
-    "fodmap-free",
     "gluten-free",
     "immuno-supportive",
     "keto-friendly",
@@ -74,8 +70,6 @@ export default function Search() {
     "kosher",
     "low-potassium",
     "low-sugar",
-    "lupine-free",
-    "Mediterranean",
     "mollusk-free",
     "mustard-free",
     "No-oil-added",
@@ -104,20 +98,15 @@ export default function Search() {
   ];
   const mealArray = [
     "breakfast",
-    "brunch",
     "lunch",
     "dinner",
-    "snack",
-    "teatime",
   ];
   const cuisineArray = [
     "american",
     "asian",
     "british",
     "caribbean",
-    "central%20europe",
     "chinese",
-    "eastern%20europe",
     "french",
     "greek",
     "indian",
@@ -127,10 +116,7 @@ export default function Search() {
     "kosher",
     "mediterranean",
     "mexican",
-    "middle%20eastern",
     "nordic",
-    "south%20american",
-    "south%20east%20asian",
     "world",
   ];
 
@@ -181,7 +167,7 @@ export default function Search() {
                     return (
                       <li className={styles.list} key={item}>
                         <label className={styles.listLabel} htmlFor={item}>
-                          {item}:{" "}
+                          {item}{" "}
                         </label>
                         <input
                           className={styles.checkBoxChild}
@@ -200,7 +186,7 @@ export default function Search() {
           </div>
 
           <div className={styles.listContainer}>
-            <label className={styles.label} htmlFor="health">Health </label>
+            <label className={styles.label} htmlFor="health">Dietary Restrictions</label>
             <input
               className={styles.checkBoxParent}
               type="checkbox"
@@ -214,7 +200,7 @@ export default function Search() {
                     return (
                       <li className={styles.list} key={item}>
                         <label className={styles.listLabel} htmlFor={item}>
-                          {item}:{" "}
+                          {item}{" "}
                         </label>
                         <input
                           className={styles.checkBoxChild}
@@ -233,7 +219,7 @@ export default function Search() {
           </div>
 
           <div className={styles.listContainer}>
-            <label className={styles.label} htmlFor="meal">Meal </label>
+            <label className={styles.label} htmlFor="meal">Meals</label>
             <input
               className={styles.checkBoxParent}
               type="checkbox"
@@ -247,9 +233,8 @@ export default function Search() {
                     return (
                       <li className={styles.list} key={item}>
                         <label className={styles.listLabel} htmlFor={item}>
-                          {item}:{" "}
-                        </label>
-                        <input
+                          {item}{" "}
+													<input
                           className={styles.checkBoxChild}
                           type="checkbox"
                           id={item}
@@ -258,6 +243,9 @@ export default function Search() {
                           checked={isSelectedMeal(item)}
                           onChange={onChangeMeal}
                         />
+												<span className={styles.checkmark}></span>
+                        </label>
+
                       </li>
                     );
                   })
@@ -266,7 +254,7 @@ export default function Search() {
           </div>
 
           <div className={styles.listContainer}>
-            <label className={styles.label} htmlFor="cuisine">Cuisine </label>
+            <label className={styles.label} htmlFor="cuisine">Cuisine</label>
             <input
               className={styles.checkBoxParent}
               type="checkbox"
@@ -280,7 +268,7 @@ export default function Search() {
                     return (
                       <li className={styles.list} key={item}>
                         <label className={styles.listLabel} htmlFor={item}>
-                          {item}:{" "}
+                          {item}{" "}
                         </label>
                         <input
                           className={styles.checkBoxChild}

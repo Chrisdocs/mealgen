@@ -1,107 +1,136 @@
-@import 'mixins';
+@import "mixins";
 
 /* Search Component */
 
-.searchWrapper{
-	.formEl{
-		.checkBoxContainer{
-			display: flex;
-			justify-content: center;
-			justify-content: space-around;
-			.listContainer{
-				.checkBoxParent{
-					display: none;
-				}
-				.checkBoxUl{
-				position: absolute;
-				list-style-type: none;
-				padding-left: 0;
-				.list{
-
-				}
-				.checkBoxChild{
-				}
-			}
-		}
-		}
-		.btnWrapper{
-			display: flex;
-			justify-content: center;
-			.searchBtn{
-			}
-		}
-	}
-	.searchResultsContainer{
-		text-align: center;
-	}
+.searchWrapper {
+  .formEl {
+    .checkBoxContainer {
+      display: flex;
+      justify-content: center;
+      justify-content: space-around;
+      .listContainer {
+        .checkBoxParent {
+          display: none;
+        }
+        .checkBoxUl {
+          position: absolute;
+          list-style-type: none;
+          padding-left: 0;
+          .list {
+          }
+          .checkBoxChild {
+          }
+        }
+      }
+    }
+    .btnWrapper {
+      display: flex;
+      justify-content: center;
+      .searchBtn {
+      }
+    }
+  }
+  .searchResultsContainer {
+    text-align: center;
+  }
 }
 
 @media screen and (max-width: 450px) {
-	.searchWrapper{
-		.searchTitle{
-			text-align: center;
-			background-color: $globalBackgroundColorLight;
-			color: black;
-			padding: 40px 0 40px 0;
-			margin-top: 0;
-			margin-bottom: 30px;
-			border-radius: 0 0 50px 50px;
-			box-shadow: 0px 8px 8px rgba(0, 0, 0, 0.25);
-		}
-		.formEl{
-			.checkBoxContainer{
-				flex-direction: column;
-				align-items: center;
-				.listContainer{
-					.label{
-						display: flex;
-						justify-content: center;
-						background-color: $btnPrimary;
-						color: black;
-						width: 90vw;
-						padding: 20px 0 20px 0;
-						border-radius: 25px;
-						font-size: 32px;
-						box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-					}
-					.checkBoxParent{
-						display: none;
-					}
-					.checkBoxUl{
-						position: relative;
-						.list{
-							display: flex;
-							justify-content: center;
-							.checkBoxChild{
-							}
-						}
-						.checkBoxChild{
-						}
-					}
-				}
-			}
-		}
-	}
-	.btnWrapper{
-		.searchBtn{
-			margin-bottom: 50px;
-		}
-	}
+  .searchWrapper {
+    .searchTitle {
+      text-align: center;
+      background-color: $globalBackgroundColorLight;
+      color: black;
+      padding: 40px 0 40px 0;
+      margin-top: 0;
+      margin-bottom: 30px;
+      border-radius: 0 0 50px 50px;
+      box-shadow: 0px 8px 8px rgba(0, 0, 0, 0.25);
+    }
+    .formEl {
+      .checkBoxContainer {
+        flex-direction: column;
+        align-items: center;
+        .listContainer {
+          .label {
+            display: flex;
+            justify-content: center;
+            background-color: $btnPrimary;
+            color: black;
+            width: 90vw;
+            padding: 20px 0 20px 0;
+            border-radius: 25px;
+            font-size: 32px;
+            box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+          }
+          .checkBoxParent {
+            display: none;
+          }
+          .checkBoxUl {
+            position: relative;
+            .list {
+              display: flex;
+              justify-content: center;
+              padding: 5px;
+              margin-top: 5px;
+              background-color: $btnSecondary;
+              color: black;
+              border-radius: 25px;
+              .listLabel {
+                .checkBoxChild {
+                }
+                .checkmark {
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+  .btnWrapper {
+    .searchBtn {
+      margin-bottom: 50px;
+    }
+  }
 }
 
 /* results component */
 
-.resultsWrapper{
-	background-color: $btnPrimary;
-	padding: 10px 0 10px 0;
-	border-radius: 100px;
-	width: 150px;
-	margin: 0 auto;
-	color: black;
-	font-size: 40px;
-	box-shadow: 0px 10px 10px rgba(0, 0, 0, 0.25);
-	.goLink{
-		.linkP{
+.resultsWrapper {
+  background-color: $btnPrimary;
+  padding: 10px 0 10px 0;
+  border-radius: 100px;
+  width: 150px;
+  margin: 0 auto;
+  color: black;
+  font-size: 40px;
+  box-shadow: 0px 10px 10px rgba(0, 0, 0, 0.25);
+  .goLink {
+    .linkP {
+    }
+  }
+}
+
+/* [recipes] component */
+
+.recipesWrapper {
+  .recipePageTitle {
+    text-align: center;
+  }
+  .recipeContainer {
+    display: flex;
+    background-color: $globalBackgroundColorLight;
+    color: black;
+    margin: 10px;
+    border-radius: 25px;
+    height: 10vh;
+    .recipeImg {
+      max-width: 25vw;
+    }
+		.recipeLabel{
+			margin-left: 10px;
+			font-weight: bold;
 		}
-	}
+  }
 }
